@@ -1,0 +1,1181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_Option">Class Option </a></li>
+<li><a href="#Class_Result">Class Result </a></li>
+<li><a href="#Class_boolean">Class boolean </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>tupelo</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>tupelo</code></h1>
+<p>This module provides a set of functional programming utilities and types</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#F.is_nil">F.is_nil (x)</a></td>
+	<td class="summary">Checks if the value is nil</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.is_number">F.is_number (x)</a></td>
+	<td class="summary">Checks if the value is a number, string, boolean, function, or table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.is_string">F.is_string (x)</a></td>
+	<td class="summary">Checks if the value is a string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.is_boolean">F.is_boolean (x)</a></td>
+	<td class="summary">Checks if the value is a boolean</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.is_function">F.is_function (x)</a></td>
+	<td class="summary">Checks if the value is a function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.is_table">F.is_table (x)</a></td>
+	<td class="summary">Checks if the value is a table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.type">F.type (validator, name)</a></td>
+	<td class="summary">Type constructor and validator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.validate">F.validate (value, type_def)</a></td>
+	<td class="summary">Validates the value against the type definition</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.compose">F.compose (f, g)</a></td>
+	<td class="summary">Composes two functions</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.curry">F.curry (fn)</a></td>
+	<td class="summary">Creates a curried version of a function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.map">F.map (fn)</a></td>
+	<td class="summary">Maps a function over a table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.filter">F.filter (predicate)</a></td>
+	<td class="summary">Filters a table based on a predicate function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.reduce">F.reduce (fn, initial)</a></td>
+	<td class="summary">Reduces a table to a single value using a reducer function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#F.make_functor">F.make_functor (fn, initial_state)</a></td>
+	<td class="summary">Creates a functor that can be used to maintain state</td>
+	</tr>
+</table>
+<h2><a href="#Class_Option">Class Option </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Option.some">Option.some (value)</a></td>
+	<td class="summary">Creates a new Option with a value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.none">Option.none ()</a></td>
+	<td class="summary">Creates a new Option with no value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.is_some">Option.is_some (self)</a></td>
+	<td class="summary">Checks if the Option is Some or None</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.is_none">Option.is_none (self)</a></td>
+	<td class="summary">Checks if the Option is None</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.unwrap">Option.unwrap (self)</a></td>
+	<td class="summary">Unwraps the value from the Option, raises an error if None</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.unwrap_or">Option.unwrap_or (self, default)</a></td>
+	<td class="summary">Unwraps the value from the Option, returns a default value if None</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.map">Option.map (fn)</a></td>
+	<td class="summary">Maps a function over the Option value, returning a new Option</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.map_or">Option.map_or (fn, default)</a></td>
+	<td class="summary">Maps a function over the Option value, returning a default value if None</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.and_then">Option.and_then (fn)</a></td>
+	<td class="summary">Chains operations on the Option, expecting the function to return another Option</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.or_else">Option.or_else (fn)</a></td>
+	<td class="summary">Chains operations on the Option, expecting the function to return another Option</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.__tostring">Option.__tostring (self)</a></td>
+	<td class="summary">Converts the Option to a string representation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Option.__eq">Option.__eq (a, b)</a></td>
+	<td class="summary">Checks if two Options are equal</td>
+	</tr>
+</table>
+<h2><a href="#Class_Result">Class Result </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Result.ok">Result.ok (value)</a></td>
+	<td class="summary">Creates a new Result with an Ok value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.err">Result.err (value)</a></td>
+	<td class="summary">Creates a new Result with an Err value</td>
+	</tr>
+</table>
+<h2><a href="#Class_boolean">Class boolean </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Result.unwrap">Result.unwrap (self)</a></td>
+	<td class="summary">Checks if the Result is None (neither Ok nor Err)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.unwrap_err">Result.unwrap_err (self)</a></td>
+	<td class="summary">Unwraps the value from the Result, raises an error if Err</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.map">Result.map (self, fn)</a></td>
+	<td class="summary">Unwraps the value from the Result, returns a default value if Err</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.map_err">Result.map_err (self, fn)</a></td>
+	<td class="summary">Unwraps the value from the Result, returns a default value if Err</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.and_then">Result.and_then (self, fn)</a></td>
+	<td class="summary">Maps a function over the Result value, returning a new Result</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.or_else">Result.or_else (self, fn)</a></td>
+	<td class="summary">Maps a function over the Result value, returning a default value if Err</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.__tostring">Result.__tostring (self)</a></td>
+	<td class="summary">Converts the Result to a string representation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Result.__eq">Result.__eq (a, b)</a></td>
+	<td class="summary">Checks if two Results are equal</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "F.is_nil"></a>
+    <strong>F.is_nil (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is nil
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.is_number"></a>
+    <strong>F.is_number (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is a number, string, boolean, function, or table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.is_string"></a>
+    <strong>F.is_string (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is a string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.is_boolean"></a>
+    <strong>F.is_boolean (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is a boolean
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.is_function"></a>
+    <strong>F.is_function (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is a function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.is_table"></a>
+    <strong>F.is_table (x)</strong>
+    </dt>
+    <dd>
+    Checks if the value is a table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.type"></a>
+    <strong>F.type (validator, name)</strong>
+    </dt>
+    <dd>
+    Type constructor and validator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">validator</span>
+         function
+        </li>
+        <li><span class="parameter">name</span>
+         string|nil
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.validate"></a>
+    <strong>F.validate (value, type_def)</strong>
+    </dt>
+    <dd>
+    Validates the value against the type definition
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         any
+        </li>
+        <li><span class="parameter">type_def</span>
+         table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.compose"></a>
+    <strong>F.compose (f, g)</strong>
+    </dt>
+    <dd>
+    Composes two functions
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         function
+        </li>
+        <li><span class="parameter">g</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.curry"></a>
+    <strong>F.curry (fn)</strong>
+    </dt>
+    <dd>
+    Creates a curried version of a function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.map"></a>
+    <strong>F.map (fn)</strong>
+    </dt>
+    <dd>
+    Maps a function over a table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.filter"></a>
+    <strong>F.filter (predicate)</strong>
+    </dt>
+    <dd>
+    Filters a table based on a predicate function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">predicate</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.reduce"></a>
+    <strong>F.reduce (fn, initial)</strong>
+    </dt>
+    <dd>
+    Reduces a table to a single value using a reducer function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+        <li><span class="parameter">initial</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "F.make_functor"></a>
+    <strong>F.make_functor (fn, initial_state)</strong>
+    </dt>
+    <dd>
+    Creates a functor that can be used to maintain state
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+        <li><span class="parameter">initial_state</span>
+         table|nil
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function, table
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_Option"></a>Class Option </h2>
+
+          <div class="section-description">
+          Represents an optional value that can be either Some or None
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "Option.some"></a>
+    <strong>Option.some (value)</strong>
+    </dt>
+    <dd>
+    Creates a new Option with a value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Option
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.none"></a>
+    <strong>Option.none ()</strong>
+    </dt>
+    <dd>
+    Creates a new Option with no value
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Option
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.is_some"></a>
+    <strong>Option.is_some (self)</strong>
+    </dt>
+    <dd>
+    Checks if the Option is Some or None
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Option
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.is_none"></a>
+    <strong>Option.is_none (self)</strong>
+    </dt>
+    <dd>
+    Checks if the Option is None
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Option
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.unwrap"></a>
+    <strong>Option.unwrap (self)</strong>
+    </dt>
+    <dd>
+    Unwraps the value from the Option, raises an error if None
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Option
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+    <h3>Raises:</h3>
+    error if None
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.unwrap_or"></a>
+    <strong>Option.unwrap_or (self, default)</strong>
+    </dt>
+    <dd>
+    Unwraps the value from the Option, returns a default value if None
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Option
+        </li>
+        <li><span class="parameter">default</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.map"></a>
+    <strong>Option.map (fn)</strong>
+    </dt>
+    <dd>
+    Maps a function over the Option value, returning a new Option
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Option
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.map_or"></a>
+    <strong>Option.map_or (fn, default)</strong>
+    </dt>
+    <dd>
+    Maps a function over the Option value, returning a default value if None
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+        <li><span class="parameter">default</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.and_then"></a>
+    <strong>Option.and_then (fn)</strong>
+    </dt>
+    <dd>
+    Chains operations on the Option, expecting the function to return another Option
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Option
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.or_else"></a>
+    <strong>Option.or_else (fn)</strong>
+    </dt>
+    <dd>
+    Chains operations on the Option, expecting the function to return another Option
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Option
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.__tostring"></a>
+    <strong>Option.__tostring (self)</strong>
+    </dt>
+    <dd>
+    Converts the Option to a string representation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Option.__eq"></a>
+    <strong>Option.__eq (a, b)</strong>
+    </dt>
+    <dd>
+    Checks if two Options are equal
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         Option
+        </li>
+        <li><span class="parameter">b</span>
+         Option
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_Result"></a>Class Result </h2>
+
+          <div class="section-description">
+          Represents a Result type that can be either Ok or Err
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "Result.ok"></a>
+    <strong>Result.ok (value)</strong>
+    </dt>
+    <dd>
+    Creates a new Result with an Ok value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.err"></a>
+    <strong>Result.err (value)</strong>
+    </dt>
+    <dd>
+    Creates a new Result with an Err value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Class_boolean"></a>Class boolean </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Result.unwrap"></a>
+    <strong>Result.unwrap (self)</strong>
+    </dt>
+    <dd>
+    Checks if the Result is None (neither Ok nor Err)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+    <h3>Raises:</h3>
+    error if neither Ok nor Err
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.unwrap_err"></a>
+    <strong>Result.unwrap_err (self)</strong>
+    </dt>
+    <dd>
+    Unwraps the value from the Result, raises an error if Err
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+    <h3>Raises:</h3>
+    error if Err
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.map"></a>
+    <strong>Result.map (self, fn)</strong>
+    </dt>
+    <dd>
+    Unwraps the value from the Result, returns a default value if Err
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.map_err"></a>
+    <strong>Result.map_err (self, fn)</strong>
+    </dt>
+    <dd>
+    Unwraps the value from the Result, returns a default value if Err
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.and_then"></a>
+    <strong>Result.and_then (self, fn)</strong>
+    </dt>
+    <dd>
+    Maps a function over the Result value, returning a new Result
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result|any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.or_else"></a>
+    <strong>Result.or_else (self, fn)</strong>
+    </dt>
+    <dd>
+    Maps a function over the Result value, returning a default value if Err
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+        <li><span class="parameter">fn</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Result|any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.__tostring"></a>
+    <strong>Result.__tostring (self)</strong>
+    </dt>
+    <dd>
+    Converts the Result to a string representation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         Result
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Result.__eq"></a>
+    <strong>Result.__eq (a, b)</strong>
+    </dt>
+    <dd>
+    Checks if two Results are equal
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         Result
+        </li>
+        <li><span class="parameter">b</span>
+         Result
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-06-07 04:28:23 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -6,10 +6,4 @@ description = 'A functional programming library that brings modern type safety a
 file = 'src'
 dir = 'docs'
 
-format = 'discount'
-backtick_references = true
-merge = true
-sort = true
-style = true
-
 readme = 'README.md'

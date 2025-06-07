@@ -1,0 +1,29 @@
+name: LuaJIT Tests (Optional)
+
+on:
+  workflow_dispatch: # Manual trigger only
+
+jobs:
+  test-luajit:
+    name: Test on LuaJIT
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LuaJIT
+        uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "luajit"
+
+      - name: Setup LuaRocks
+        uses: leafo/gh-actions-luarocks@v4
+
+      - name: Install dependencies
+        run: |
+          luarocks install busted
+          luarocks install luacheck
+
+      - name: Run tests
+        run: |
+          busted --verbose

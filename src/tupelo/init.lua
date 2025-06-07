@@ -1,3 +1,5 @@
+--- This module provides a set of functional programming utilities and types
+-- @module tupelo
 local F = {}
 
 --- Checks if the value is nil
@@ -156,7 +158,7 @@ function F.make_functor(fn, initial_state)
 end
 
 --- Represents an optional value that can be either Some or None
----@class Option
+---@type Option
 ---@field _is_some boolean
 ---@field _is_none boolean
 ---@field value any
@@ -179,19 +181,22 @@ Option.none = function()
     return setmetatable({ _is_none = true, _is_some = false, value = nil }, Option)
 end
 
----@type boolean|function
 --- Checks if the Option is Some or None
+---@param self Option
 ---@return boolean
 Option.is_some = function(self)
     return self._is_some == true
 end
----@type boolean|function
+
 --- Checks if the Option is None
+---@param self Option
 ---@return boolean
 Option.is_none = function(self)
     return self._is_none == true
 end
+
 --- Unwraps the value from the Option, raises an error if None
+---@param self Option
 ---@return any
 ---@raise error if None
 Option.unwrap = function(self)
@@ -201,7 +206,9 @@ Option.unwrap = function(self)
         error("Attempted to unwrap a None Option")
     end
 end
+
 --- Unwraps the value from the Option, returns a default value if None
+---@param self Option
 ---@param default any
 ---@return any
 Option.unwrap_or = function(self, default)
@@ -285,7 +292,7 @@ end
 F.Option = Option
 
 --- Represents a Result type that can be either Ok or Err
----@class Result
+---@type Result
 ---@field _is_ok boolean
 ---@field _is_err boolean
 ---@field value any
