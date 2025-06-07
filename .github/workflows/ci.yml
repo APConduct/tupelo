@@ -97,8 +97,6 @@ jobs:
     name: Generate Documentation
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    continue-on-error: true # Don't fail CI if docs fail
-
     steps:
       - uses: actions/checkout@v4
 
@@ -107,9 +105,6 @@ jobs:
         with:
           luaVersion: "5.4"
 
-      - name: Setup LuaRocks
-        uses: leafo/gh-actions-luarocks@v4
-
       - name: Install LDoc
         run: |
           luarocks install ldoc || {
@@ -117,20 +112,24 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y lua-doc || echo "Could not install lua-doc"
           }
+          if ! command -v ldoc >/dev/null 2>&1; then
+            echo "LDoc installation failed. Please check your dependencies."
+            exit 1
+          fi
 
       - name: Generate documentation
         run: |
-          if command -v ldoc >/dev/null 2>&1; then
-            ldoc -d docs src/ || echo "LDoc generation failed"
-          else
-            echo "LDoc not available, skipping documentation generation"
+          ldoc -d docs src/ || {
+            echo "LDoc generation failed"
             mkdir -p docs
             echo "# Documentation" > docs/index.html
             echo "Documentation generation failed. Please check the logs." >> docs/index.html
-          fi
+          }
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+          publish_branch: gh-pages
+          force_orphan: true
