@@ -157,12 +157,12 @@ end
 
 --- Represents an optional value that can be either Some or None
 ---@class Option
----@field is_some boolean
----@field is_none boolean
+---@field _is_some boolean
+---@field _is_none boolean
 ---@field value any
 local Option = F.type(
     function(x)
-        return x == nil or (type(x) == "table" and x.is_some or x.is_none)
+        return x == nil or (type(x) == "table" and x._is_some or x._is_none)
     end,
     "Option"
 )
@@ -171,31 +171,31 @@ Option.__index = Option
 ---@param value any
 ---@return Option
 Option.some = function(value)
-    return setmetatable({ value = value, is_some = true, is_none = false }, Option)
+    return setmetatable({ value = value, _is_some = true, _is_none = false }, Option)
 end
 --- Creates a new Option with no value
 ---@return Option
 Option.none = function()
-    return setmetatable({ is_none = true, is_some = false, value = nil }, Option)
+    return setmetatable({ _is_none = true, _is_some = false, value = nil }, Option)
 end
 
 ---@type boolean|function
 --- Checks if the Option is Some or None
 ---@return boolean
 Option.is_some = function(self)
-    return self.is_some == true
+    return self._is_some == true
 end
 ---@type boolean|function
 --- Checks if the Option is None
 ---@return boolean
 Option.is_none = function(self)
-    return self.is_none == true
+    return self._is_none == true
 end
 --- Unwraps the value from the Option, raises an error if None
 ---@return any
 ---@raise error if None
 Option.unwrap = function(self)
-    if self.is_some then
+    if self._is_some then
         return self.value
     else
         error("Attempted to unwrap a None Option")
@@ -205,7 +205,7 @@ end
 ---@param default any
 ---@return any
 Option.unwrap_or = function(self, default)
-    if self.is_some then
+    if self._is_some then
         return self.value
     else
         return default
@@ -216,7 +216,7 @@ end
 ---@param fn function
 ---@return Option
 Option.map = function(self, fn)
-    if self.is_some then
+    if self._is_some then
         return Option.some(fn(self.value))
     else
         return self -- Propagate the None
@@ -228,7 +228,7 @@ end
 ---@param default any
 ---@return any
 Option.map_or = function(self, fn, default)
-    if self.is_some then
+    if self._is_some then
         return fn(self.value)
     else
         return default
@@ -239,7 +239,7 @@ end
 ---@param fn function
 ---@return Option
 Option.and_then = function(self, fn)
-    if self.is_some then
+    if self._is_some then
         return fn(self.value) -- Expecting fn to return an Option
     else
         return self           -- Propagate the None
@@ -250,7 +250,7 @@ end
 ---@param fn function
 ---@return Option
 Option.or_else = function(self, fn)
-    if self.is_none then
+    if self._is_none then
         return fn() -- Expecting fn to return an Option
     else
         return self -- Propagate the Some
@@ -260,9 +260,9 @@ end
 --- Converts the Option to a string representation
 ---@return string
 Option.__tostring = function(self)
-    if self.is_some then
+    if self._is_some then
         return "Some(" .. tostring(self.value) .. ")"
-    elseif self.is_none then
+    elseif self._is_none then
         return "None"
     else
         return "Option(None)"
@@ -274,9 +274,9 @@ end
 ---@param b Option
 ---@return boolean
 Option.__eq = function(a, b)
-    if a.is_some and b.is_some then
+    if a._is_some and b._is_some then
         return a.value == b.value
-    elseif a.is_none and b.is_none then
+    elseif a._is_none and b._is_none then
         return true
     else
         return false
@@ -286,12 +286,12 @@ F.Option = Option
 
 --- Represents a Result type that can be either Ok or Err
 ---@class Result
----@field is_ok boolean|function
----@field is_err boolean|function
+---@field _is_ok boolean
+---@field _is_err boolean
 ---@field value any
 local Result = F.type(
     function(x)
-        return x == nil or (type(x) == "table" and x.is_ok or x.is_err)
+        return x == nil or (type(x) == "table" and x._is_ok or x._is_err)
     end,
     "Result"
 )
@@ -301,28 +301,28 @@ Result.__index = Result
 ---@param value any
 ---@return Result
 Result.ok = function(value)
-    return setmetatable({ value = value, is_ok = true }, Result)
+    return setmetatable({ value = value, _is_ok = true, _is_err = false }, Result)
 end
 
 --- Creates a new Result with an Err value
 ---@param value any
 ---@return Result
 Result.err = function(value)
-    return setmetatable({ value = value, is_err = true }, Result)
+    return setmetatable({ value = value, _is_err = true, _is_ok = false }, Result)
 end
 
 ---@type boolean|function
 --- Checks if the Result is Ok
 ---@return boolean
 Result.is_ok = function(self)
-    return self.is_ok == true
+    return self._is_ok == true
 end
 
 ---@type boolean|function
 --- Checks if the Result is Err
 ---@return boolean
 Result.is_err = function(self)
-    return self.is_err == true
+    return self._is_err == true
 end
 
 --- Checks if the Result is None (neither Ok nor Err)
@@ -330,7 +330,7 @@ end
 ---@return any
 ---@raise error if neither Ok nor Err
 Result.unwrap = function(self)
-    if self.is_ok then
+    if self._is_ok then
         return self.value
     else
         error("Attempted to unwrap an error Result")
@@ -342,7 +342,7 @@ end
 ---@return any
 ---@raise error if Err
 Result.unwrap_err = function(self)
-    if self.is_err then
+    if self._is_err then
         return self.value
     else
         error("Attempted to unwrap an ok Result")
@@ -354,7 +354,7 @@ end
 ---@param fn function
 ---@return Result
 Result.map = function(self, fn)
-    if self.is_ok then
+    if self._is_ok then
         return Result.ok(fn(self.value))
     else
         return self -- Propagate the error
@@ -366,7 +366,7 @@ end
 ---@param fn function
 ---@return Result
 Result.map_err = function(self, fn)
-    if self.is_err then
+    if self._is_err then
         return Result.err(fn(self.value))
     else
         return self -- Propagate the ok value
@@ -437,35 +437,4 @@ F.IsOption = F.type(function(x) return x.is_some or x.is_none end, "Option")
 F.IsResult = F.type(function(x) return x.is_ok or x.is_err end, "Result")
 F.IsFunctor = F.type(function(x) return type(x) == "function" end, "Functor")
 
-
-
--- Test cases to demonstrate usage
-
-local opt = Option.some(5)
-print(opt.is_some)         -- Output: true
-print(Option.is_some(opt)) -- Output: true
-
----@type function
-local compose_result = F.compose(F.is_string, F.is_number)
----@type boolean
-local cr_result = compose_result(123) -- Example usage, should print false since 123 is a number, not a string
-print(cr_result)                      -- Output: false
-
-local curried_add = F.curry(function(a, b) return a + b end)
-print(curried_add(2)(3)) -- Output: 5
-
-
-local mapped = F.map(function(x) return x * 2 end)({ 1, 2, 3 })
-print(mapped[1], mapped[2], mapped[3]) -- Output: 2 4 6
-
-local filtered = F.filter(function(x) return x > 1 end)({ 1, 2, 3, 4 })
-print(filtered[1], filtered[2]) -- Output: 2 3
-
-local reduced = F.reduce(function(acc, x) return acc + x end, 0)({ 1, 2, 3 })
-print(reduced) -- Output: 6
-
-
-local option = Option.some(42)
-print(option:unwrap())          -- Output: 42
-local none_option = Option.none()
-print(none_option:unwrap_or(0)) -- Output: 0
+return F
