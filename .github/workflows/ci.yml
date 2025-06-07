@@ -112,11 +112,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y luarocks
           fi
-          luarocks install ldoc || {
+          luarocks install --local ldoc || {
             echo "Failed to install ldoc, trying alternative installation"
             sudo apt-get update
             sudo apt-get install -y lua-doc || echo "Could not install lua-doc"
           }
+          export PATH=$HOME/.luarocks/bin:$PATH
           if ! command -v ldoc >/dev/null 2>&1; then
             echo "LDoc installation failed. Please check your dependencies."
             exit 1
