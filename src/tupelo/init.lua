@@ -69,8 +69,7 @@ end
 ---@param fn function
 ---@return any
 F.curry = function(fn)
-    local arity = debug.getinfo(fn).nparams
-    local function curry_impl(args)
+    local function curry_impl(args, arity)
         return function(...)
             local new_args = {}
             for i, v in ipairs(args) do
@@ -84,11 +83,23 @@ F.curry = function(fn)
             if #new_args >= arity then
                 return fn(table.unpack(new_args, 1, arity))
             else
-                return curry_impl(new_args)
+                return curry_impl(new_args, arity)
             end
         end
     end
-    return curry_impl({})
+
+    -- Determine arity dynamically by invoking the function with a large number of arguments
+    local arity = 0
+    while true do
+        local success = pcall(fn, table.unpack({ ("x"):rep(arity) }, 1, arity))
+        if success then
+            arity = arity + 1
+        else
+            break
+        end
+    end
+
+    return curry_impl({}, arity)
 end
 
 --- Maps a function over a table
