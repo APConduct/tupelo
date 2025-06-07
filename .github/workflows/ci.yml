@@ -107,6 +107,11 @@ jobs:
 
       - name: Install LDoc
         run: |
+          if ! command -v luarocks >/dev/null 2>&1; then
+            echo "LuaRocks not found. Installing LuaRocks."
+            sudo apt-get update
+            sudo apt-get install -y luarocks
+          fi
           luarocks install ldoc || {
             echo "Failed to install ldoc, trying alternative installation"
             sudo apt-get update
