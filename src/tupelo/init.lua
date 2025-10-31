@@ -168,6 +168,7 @@ local Option = F.type(
     end,
     "Option"
 )
+
 Option.__index = Option
 --- Creates a new Option with a value
 ---@param value any

@@ -1,6 +1,11 @@
 {
     "diagnostics.disable": [
         "undefined-doc-name",
-        "doc-field-no-class"
+        "doc-field-no-class",
+        "undefined-field"
+    ],
+    "diagnostics.globals": [
+        "describe",
+        "it"
     ]
 }
